@@ -17,7 +17,7 @@ app.get('/api', (req, res) => {
 app.post('/login', (req, res) => {
     username = req.body.username;
     password = req.body.password;
-    res.json({name: username, password: password});
+    res.json({"name": username, "password": password});
 })
 
 const PORT = process.env.PORT || 3001;

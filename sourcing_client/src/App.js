@@ -18,17 +18,38 @@ function App() {
     const user_info = {username: username, password: password};
     const response = await axios.post('/login', user_info);
     // set and store the user
-    setUser(response.data)
-    localStorage.setItem('user', response.data)
-    console.log(response.data)
+    setUser(response.data);
+    localStorage.setItem('user', response.data);
+    console.log(response.data);
   };
+
+  const handleLogout = () => {
+    setUsername("");
+    setPassword("");
+    setUser({});
+    localStorage.clear();
+  };
+
+  // check if user is already logged in
+  React.useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    console.log(loggedInUser)
+    if (loggedInUser) {
+      setUser(loggedInUser);
+    }
+  }, []);
 
   // if there's a user show the following message
   if (user) {
-    return <div>{user.name} just logged in</div>;
+    return (
+      <div>
+        <div>{user.name} just logged in</div>
+        <button onClick={handleLogout}>logout</button>
+      </div>
+    );
   }
 
-  // an alternative way to Axios to connect with APIs
+  // an alternative way from Axios to connect with APIs
   // React.useEffect(() => {
   //   fetch("/api")
   //   .then((res) => res.json())
