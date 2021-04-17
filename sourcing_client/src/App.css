@@ -14,6 +14,7 @@
 }
 
 .App-header {
+  background-image: url("sourcer_background.png");
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,6 +23,17 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.h1{
+  font-family: "Helvetica Neue",Arial,sans-serif;
+  color: #fff;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 80px;
+  letter-spacing: 0em;
+  line-height: 1em;
+  text-transform: none;
 }
 
 .App-link {

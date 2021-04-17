@@ -2,15 +2,30 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import axios from "axios";
+import LoginPage from './LoginPage.js'
 
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
+
+// next half-step: get this thing working with routes
+  // to access global state from components, use useContext. https://medium.com/fullstacked/create-a-global-state-with-react-context-564524fc3b6c#:~:text=To%20access%20the%20global%20state,state%20with%20the%20function%20setState.
 // next step: construct a header and change how it reads depending on 
 // which user logs in
+
+// global app variables
+  // username
+  // password
+  // user
+// components to construct
+  // login page
+  // home page
 
 function App() {
  // const [data, setData] = React.useState(null);
  const [username, setUsername] = React.useState("");
  const [password, setPassword] = React.useState("");
  const [user, setUser] = React.useState(null);
+ const [test, setTest] = React.useState("Really a test");
 
   const handleSubmit = async e => {
     e.preventDefault(); // prevents default behavior of component from running
@@ -61,7 +76,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <h1>The Sourcerer</h1>
+        <LoginPage test={test} />
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username: </label>
           <input
