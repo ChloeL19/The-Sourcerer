@@ -6,7 +6,7 @@ import LoginPage from './LoginPage'
 import AppContext from './AppContext';
 import Home from './Home'
 
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 
 // next half-step: get this thing working with routes
@@ -38,24 +38,6 @@ function App() {
    setUser,
  };
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault(); // prevents default behavior of component from running
-  //                       // i.e. for a toggle button that would be toggling
-  //   const user_info = {username: username, password: password};
-  //   const response = await axios.post('/login', user_info);
-  //   // set and store the user
-  //   setUser(response.data);
-  //   localStorage.setItem('user', response.data);
-  //   console.log(response.data);
-  // };
-
-  // const handleLogout = () => {
-  //   setUsername("");
-  //   setPassword("");
-  //   setUser({});
-  //   localStorage.clear();
-  // };
-
   // check if user is already logged in
   React.useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -69,91 +51,39 @@ function App() {
   // if there's a user show the following message
   if (user) {
     return (
-      // <div>
-      //   <div>{user.name} just logged in</div>
-      //   <button onClick={handleLogout}>logout</button>
-      // </div>
       <AppContext.Provider value={userSettings}>
-        <Home user={user}/>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/Home'>
+              <Home user={user}/>
+            </Route>
+          </Switch>
+        </BrowserRouter>
       </AppContext.Provider>
     );
   }
 
-  // an alternative way from Axios to connect with APIs
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //   .then((res) => res.json())
-  //   .then((data) => setData(data.message));
-  // }, []); // passing an empty array only makes this run once
-
   // otherwise show the login form
+
+  // declare routes like this instead: https://www.codingame.com/playgrounds/6517/react-router-tutorial
+  // probably in both return statements
+  // honestly I can probably do all of the redirecting within the sub components
+  // later figure out how to direct people away from certain pages if they have not yet logged in
 
   return (
     <AppContext.Provider value={userSettings}>
-      <div className="App">
-        <LoginPage />
-      </div>
+      <BrowserRouter>
+        <div className="App"> 
+          <Switch>
+            <Route path='/login'>
+              <LoginPage />
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
     </AppContext.Provider>
   )
-
-  // other return statements; kept around for educational purposes
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //        <img src={logo} className="App-logo" alt="logo" />
-  //        <p>{!data ? "Loading:..." : data}</p>
-  //     </header>
-  //   </div>
-  // );
-
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
 }
 
 export default App;
 
-
-
-
-// {/* <header className="App-header">
-//           {/* <img src={logo} className="App-logo" alt="logo" /> */}
-//           <h1>The Sourcerer</h1>
-//           <LoginPage test={test} />
-//           <form onSubmit={handleSubmit}>
-//             <label htmlFor="username">Username: </label>
-//             <input
-//               type="text"
-//               value={username}
-//               placeholder="enter a username"
-//               onChange={({ target }) => setUsername(target.value)}
-//             />
-//             <div>
-//               <label htmlFor="password">password: </label>
-//               <input
-//                 type="password"
-//                 value={password}
-//                 placeholder="enter a password"
-//                 onChange={({ target }) => setPassword(target.value)}
-//               />
-//             </div>
-//             <button type="submit">Login</button>
-//           </form>
-//         </header> */}

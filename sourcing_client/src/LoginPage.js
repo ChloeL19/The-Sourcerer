@@ -31,6 +31,8 @@ function LoginPage(props) {
     //     }
     // }, []);
 
+    // if user is already logged in, redirect to home page
+
     return (
         <div>
             <header className="App-header">
