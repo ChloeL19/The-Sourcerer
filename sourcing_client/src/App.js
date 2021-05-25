@@ -1,12 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useState } from 'react';
-import axios from "axios";
+import React from 'react';
 import LoginPage from './LoginPage'
 import AppContext from './AppContext';
 import Home from './Home'
 
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 
 // next half-step: get this thing working with routes
@@ -47,17 +45,25 @@ function App() {
     }
   }, []);
 
+  console.log("THe user in App.js: ")
+  console.log(user)
+  console.log(user == 'true')
 
   // if there's a user show the following message
+  // change /Home to just exact path /
   if (user) {
     return (
       <AppContext.Provider value={userSettings}>
         <BrowserRouter>
           <Switch>
-            <Route path='/Home'>
+            <Route path='/home'> 
               <Home user={user}/>
             </Route>
+            <Route path='/login'>
+              <LoginPage />
+            </Route>
           </Switch>
+          <Redirect to='/home'/>
         </BrowserRouter>
       </AppContext.Provider>
     );
@@ -75,11 +81,15 @@ function App() {
       <BrowserRouter>
         <div className="App"> 
           <Switch>
+            <Route path='/home'> 
+              <Home user={user}/>
+            </Route>
             <Route path='/login'>
               <LoginPage />
             </Route>
           </Switch>
         </div>
+        <Redirect to='/login'/>
       </BrowserRouter>
     </AppContext.Provider>
   )
